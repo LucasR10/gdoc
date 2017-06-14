@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR" ng-app="appModulo">
+
+<head>
+    <!--Importar Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css" media="screen,projection" />
+
+    <link  href="css/materialize/customizado.css" rel="stylesheet">
+
+    <script src="js/lib/angular.min.js"></script>
+    <script src="js/lib/main.js"></script>
+    <script src="js/lib/angular-route.min.js"></script>
+    <script src="js/controllers/indexController.js"></script>
+    <script src="js/controllers/usuarioController.js"></script>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8" />
+
+    <title>CPJ - Controle de processos Jurídicos</title>
+</head>
+
+<body ng-controller="indexController">
+
+         <div ng-include="index2.html"></div>
+    <ul id="slide-out" class="side-nav collapsible" data-collapsible="expandable">
+        <li>
+            <div class="userView" ng-controller="usuarioController">
+                <div class="background">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4gL_Mm4R0ErellQV8FsMKtTUPccUg4Rjfk6jATv1ChDWJYq2g">
+                </div>
+                <a href="#!user"><img class="circle" src="img/usuario.jpg"></a>
+                <a href="#!name"><span class="white-text name">{{usuario.nome}}John Doe</span></a>
+                <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
+            </div>
+        </li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#!">Cadastrar</a></li>
+        <li><a href="#!">Configurações</a></li>
+        
+        <li>
+            <div class="divider"></div>
+        </li>
+        <li><a class="waves-effect" href="#!">Sair</a></li>
+    </ul>
+
+
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo right">{{titulo}}</a>
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <li>
+                    <a href="#">
+                        <i data-activates="slide-out" class="material-icons button-collapse">menu</i></a>
+                </li>
+                <li><a href="processo.html">Processos</a></li>
+                <li><a href="#">Relátórios</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <br><br>
+    <div class="container">
+        <table class="bordered striped responsive-table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Número</th>
+                    <th>Ínicio</th>
+                    <th>Limite</th>
+                    <th>Concluido</th>
+                    <th>Editar </th>
+                    <th>Excluir </th>
+                </tr>
+            </thead>
+
+            <tbody>
+             
+                <tr ng-repeat="processo in processos">
+                    <td>{{processo.nome}}</td>
+                    <td>{{processo.numero}}</td>
+                    <td>{{processo.dataInc}}</td>
+                    <td>{{processo.dataFim}}</td>
+                    <td><i class="small material-icons left">{{processo.ativo == 'true' ? "done": "query_builder"}}</i></td>
+                    <td>
+                        <a href="processo.html" class="waves-effect  btn " ng-click="excluirMedico(null)">
+                            <i class="small material-icons left">mode_edit</i>
+                        </a>
+                    </td>
+                    <td>
+                        <a ng-click="excluirProcesso( $index )" class="waves-effect btn red">
+                            <i class="small material-icons left">delete</i>
+                        </a>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+    <!--
+    <footer class="page-footer">
+
+        <div class="footer-copyright">
+            <div class="container">
+                © 2014 Copyright CRUD - angularjs
+                <a class="grey-text text-lighten-4 right" href="#!">Mias Links</a>
+            </div>
+        </div>
+    </footer>-->
+
+    <!--Importar jQuery depois do materialize.js-->
+    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $(".button-collapse").sideNav();
+        });
+    </script>
+</body>
+
+</html>
