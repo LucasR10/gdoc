@@ -1,4 +1,4 @@
-package br.com.prova.dao;
+package br.com.gdoc.dao;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.prova.modelo.Medico;
+import br.com.gdoc.modelo.Medico;
 
 /**
  * @author Lucas Rocha

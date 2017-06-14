@@ -1,4 +1,4 @@
-package br.com.prova.modelo;
+package br.com.gdoc.modelo;
 
 import java.io.Serializable;
 import java.util.List;

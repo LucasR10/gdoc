@@ -1,6 +1,5 @@
-package br.com.prova.controller;
+package br.com.gdoc.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import br.com.prova.dao.EmpregadoDAO;
-import br.com.prova.modelo.Empregado;
-import br.com.prova.modelo.Telefone;
+import br.com.gdoc.dao.MedicoDAO;
+import br.com.gdoc.modelo.Medico;
 
 
 /**
@@ -24,60 +22,32 @@ import br.com.prova.modelo.Telefone;
  * */
 
 @Controller
-@RequestMapping(value="/empregado")
-public class EmpregadoController {
+@RequestMapping(value="/medico")
+public class MedicoController {
   
 	@Autowired
-	private EmpregadoDAO  dao;
+	private MedicoDAO dao;
 	
 	@RequestMapping(value="/buscar/{codigo}",method=RequestMethod.GET , produces = "application/json" )
 	@ResponseBody
-	public Empregado buscar(@PathVariable Integer codigo){
-		try{
-		  return dao.findtMedicoById(codigo);
-		}catch(Exception ex){
-			ex.printStackTrace();
-			return null;
-		}
+	public Medico buscar(@PathVariable Integer codigo){
+		return dao.findtMedicoById(codigo);
 	}
 	
 	@RequestMapping(value="/listar",method=RequestMethod.GET , produces = "application/json" )
 	@ResponseBody
-	public List<Empregado>	 listar(){
-	   return dao.findAll();
+	public List<Medico>	 listar(){
+		return dao.findAll();
 	}
 	@RequestMapping(value="adicionar",method=RequestMethod.POST , consumes="application/json")
 	@ResponseStatus(value = HttpStatus.OK) 
-	public  void adicionar(@RequestBody Empregado emp ){
-		 dao.save(emp);
+	public  void adicionar(@RequestBody Medico medico ){
+		 dao.saveOrUpdate(medico);
 	} 
-	
 	@RequestMapping(value="excluir/{codigo}",method=RequestMethod.DELETE)
 	@ResponseStatus(value = HttpStatus.OK) 	
 	public  void remover(@PathVariable int codigo ){	
 		if( codigo  < 0 ) return; //codigo invalido.
 		  dao.remove( dao.findtMedicoById( codigo) );
 	} 
-	
-	//testa salvar
-	
-	@RequestMapping(value="/test",method=RequestMethod.GET , produces = "application/json" )
-	@ResponseBody
-	public String	 test(){
-		List<Telefone> telefones = new ArrayList<>();
-		Empregado emp = new Empregado(); 
-		
-		emp.setNome("EMP 1");
-		emp.setSalario(1000D);
-		
-		
-		telefones.add( new Telefone("home1",345,"3333-45321" , emp )  );
-		telefones.add( new Telefone("home2",345,"3333-45312", emp ) );
-		
-		 emp.setTelefones(telefones);
-		
-		 
-		dao.save(emp);
-		return "Dasdos cadastrado !!";
-	}
 }
